@@ -1,0 +1,69 @@
+# dependencies (bun install)
+node_modules
+**/node_modules
+
+# output
+out
+dist
+*.tgz
+.next/
+build/
+
+# code coverage
+coverage
+*.lcov
+
+# logs
+logs
+_.log
+report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
+
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# caches
+.eslintcache
+.cache
+*.tsbuildinfo
+
+# IntelliJ based IDEs
+.idea
+
+# Finder (MacOS) folder config
+.DS_Store
+
+# VS Code specific
+.vscode/launch.json
+
+# Bun specific
+.bun
+
+# Temporary files
+tmp/
+temp/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# OS generated files
+ehthumbs.db
+Thumbs.db
+._*
+.Spotlight-V100
+.Trashes
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Yarn Integrity file
+.yarn-integrity
