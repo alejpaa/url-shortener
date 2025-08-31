@@ -1,6 +1,6 @@
 # URL Shortener - Monorepo
 
-Un acortador de URLs moderno construido con un monorepo que incluye:
+Un acortador de URLs for fun
 
 - **Backend**: NestJS con TypeScript
 - **Frontend**: Next.js y Tailwind CSS
