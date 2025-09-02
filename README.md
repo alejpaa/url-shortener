@@ -1,16 +1,16 @@
-# URL Shortener - Monorepo
+# URL Shortener (Aun no pienso en un nombre)
 
 Un acortador de URLs for fun
 
 - **Backend**: NestJS con TypeScript
-- **Frontend**: Next.js y Tailwind CSS
+- **Frontend**: Astro y Tailwind CSS
 
 ## 🚀 Quick Start
 
 ### Instalación
 
 ```bash
-# Instalar dependencias en todo el monorepo
+# Instalar dependencias
 bun install
 ```
 
@@ -22,7 +22,7 @@ bun run dev
 
 # O ejecutar individualmente:
 bun run dev:backend    # Solo backend (NestJS)
-bun run dev:frontend   # Solo frontend (Next.js)
+bun run dev:frontend   # Solo frontend Astro
 ```
 
 ### Build
@@ -50,13 +50,11 @@ url-shortener/
 ├── apps/
 │   ├── backend/          # API NestJS
 │   │   ├── src/
-│   │   ├── test/
 │   │   └── package.json
-│   └── frontend/         # App Next.js
-│       ├── app/
+│   └── frontend/         # Astro
+│       ├── src/
 │       ├── public/
 │       └── package.json
-├── packages/             # Paquetes compartidos
 ├── .vscode/              # Configuración VS Code
 └── package.json          # Configuración del monorepo
 ```
@@ -69,8 +67,5 @@ url-shortener/
 - **Language**: TypeScript
 
 ### Frontend
-- **Framework**: Next.js 15
-- **UI**: React 19
+- **Framework**: Astro
 - **Styling**: Tailwind CSS 4
-- **Language**: TypeScript
-- **Bundler**: Turbopack
