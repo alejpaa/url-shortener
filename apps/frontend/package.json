@@ -1,7 +1,15 @@
 {
   "name": "frontend",
-  "type": "module",
   "version": "0.0.1",
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.12",
+    "astro": "^5.13.5",
+    "tailwindcss": "^4.1.12"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.9.2"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -9,9 +17,5 @@
     "astro": "astro",
     "lint": "astro check"
   },
-  "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "astro": "^5.13.5",
-    "typescript": "^5.9.2"
-  }
+  "type": "module"
 }
