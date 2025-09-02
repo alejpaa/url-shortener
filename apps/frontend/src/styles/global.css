@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white p-10 rounded-3xl shadow-lg text-center transition-all duration-300 ease-in-out;
+  }
+  
+  .card:hover {
+    @apply -translate-y-1 shadow-xl;
+  }
+  
+  .url-input {
+    @apply flex-grow px-6 py-5 rounded-2xl border-2 border-gray-300 outline-none text-base transition-colors duration-300 bg-gray-50;
+  }
+  
+  .url-input:focus {
+    @apply border-gray-400;
+  }
+  
+  .shorten-btn {
+    @apply px-10 py-5 rounded-2xl bg-gray-700 text-white font-semibold cursor-pointer transition-all duration-300 border-none whitespace-nowrap;
+    transition: all 0.3s ease, opacity 0.2s ease, transform 0.2s ease;
+  }
+  
+  .shorten-btn:hover:not(:disabled) {
+    @apply bg-gray-800 -translate-y-0.5;
+  }
+  
+  .shorten-btn:active {
+    transform: translateY(0px);
+  }
+  
+  .shorten-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  
+  .shortened-url-container {
+    @apply mt-8 p-6 bg-gray-50 border-2 border-gray-300 rounded-2xl flex justify-between items-center flex-wrap gap-4;
+  }
+  
+  .shortened-url {
+    @apply flex-grow text-lg font-medium text-gray-800 break-all text-left;
+  }
+  
+  .copy-btn {
+    @apply bg-gray-300 text-gray-700 font-medium px-6 py-3 rounded-xl transition-all duration-300 cursor-pointer whitespace-nowrap;
+  }
+  
+  .copy-btn:hover {
+    @apply bg-gray-400 text-gray-800;
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.8s ease-out;
+  }
+  
+  .loading-state {
+    opacity: 0.7;
+    pointer-events: none;
+    transform: scale(0.98);
+  }
+  
+  .result-container {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
