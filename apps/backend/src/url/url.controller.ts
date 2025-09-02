@@ -1,10 +1,5 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-} from '@nestjs/common';
-import type { CreateShortUrlDto } from './dtos/create-short-url.dto';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { CreateShortUrlDto } from './dtos/create-short-url.dto';
 import { ResponseShorterUrlDto } from './dtos/response-shor-url.dto';
 import { UrlService } from './url.service';
 
@@ -18,8 +13,20 @@ export class UrlController {
   }
 
   @Post('/shorten')
-  shorten(@Body() url: CreateShortUrlDto): ResponseShorterUrlDto {
-    return this.urlService.createShortUrl(url.originalUrl);
+  shorten(@Body() body: CreateShortUrlDto): ResponseShorterUrlDto {
+    console.log('Body completo:', body);
+    console.log('Tipo de body:', typeof body);
+    console.log('Keys:', Object.keys(body || {}));
+
+    // Intentar extraer la URL de diferentes formas
+    const originalUrl = body?.originalUrl;
+    console.log('URL extraída:', originalUrl);
+
+    if (!originalUrl) {
+      throw new Error('No se pudo encontrar la URL en el body');
+    }
+
+    return this.urlService.createShortUrl(originalUrl);
   }
 
   @Get('/slug')
@@ -27,4 +34,4 @@ export class UrlController {
     return this.urlService.getSlug();
   }
 }
-// 
+//
