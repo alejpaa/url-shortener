@@ -1,174 +1,29 @@
 ---
 // URL Shortener main component
+import UrlShortenerForm from './UrlShortenerForm.tsx';
 ---
 
 <div class="container mx-auto mt-24 max-w-4xl px-8 w-full">
-    <div class="card fade-in">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 leading-tight">Acorta tus URLs al instante</h1>
-        <p class="mt-4 text-lg md:text-xl text-gray-600">Simple, rápido y potente. El acortador que estabas esperando.</p>
-        
-        <div class="flex flex-col md:flex-row gap-4 mt-8 w-full">
-            <input type="url" id="long-url" class="url-input" placeholder="Pega una URL larga aquí..." required>
-            <button id="shorten-btn" class="shorten-btn">Acortar</button>
-        </div>
-        
-        <div id="result-container" class="hidden">
-            <div class="shortened-url-container fade-in">
-                <span id="shortened-url" class="shortened-url"></span>
-                <button id="copy-btn" class="copy-btn">Copiar</button>
-            </div>
-        </div>
-        
-        <p id="error-message" class="text-red-500 mt-4 hidden"></p>
-    </div>
+  <div class="card fade-in">
+
+    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 leading-tight">
+      Acorta tus URLs al instante
+    </h1>
+
+    <p class="mt-4 text-lg md:text-xl text-gray-600">
+      Simple, rápido y potente. El acortador que estabas esperando.
+    </p>
     
-    <!-- Sección Inferior -->
-    <section class="mt-16 text-center max-w-2xl mx-auto">
-        <h2 class="text-3xl font-bold text-gray-800">¿Por qué usar QuickLink?</h2>
-        <p class="mt-4 text-gray-600 leading-relaxed">
-            QuickLink te permite transformar URLs largas y complicadas en enlaces cortos y memorables. Esto es ideal para compartir en redes sociales, emails o cualquier lugar donde el espacio sea limitado. Además, los enlaces cortos son más fáciles de escribir y recordar. Nuestro servicio es completamente gratuito y no requiere registro para empezar.
-        </p>
-    </section>
+    <!-- React component for interactive functionality -->
+    <UrlShortenerForm client:load />
+
+  </div>
+  
+  <!-- Sección Inferior -->
+  <section class="mt-16 text-center max-w-2xl mx-auto">
+    <h2 class="text-3xl font-bold text-gray-800">¿Por qué usar QuickLink?</h2>
+    <p class="mt-4 text-gray-600 leading-relaxed">
+      QuickLink te permite transformar URLs largas y complicadas en enlaces cortos y memorables. Esto es ideal para compartir en redes sociales, emails o cualquier lugar donde el espacio sea limitado. Además, los enlaces cortos son más fáciles de escribir y recordar. Nuestro servicio es completamente gratuito y no requiere registro para empezar.
+    </p>
+  </section>
 </div>
-
-<script>
-    document.getElementById('shorten-btn')?.addEventListener('click', async () => {
-        const longUrlInput = document.getElementById('long-url') as HTMLInputElement;
-        const longUrl = longUrlInput.value.trim();
-        const resultContainer = document.getElementById('result-container');
-        const shortenedUrlSpan = document.getElementById('shortened-url');
-        const errorMessage = document.getElementById('error-message');
-
-        // Resetear mensajes y estados
-        resultContainer?.classList.add('hidden');
-        errorMessage?.classList.add('hidden');
-
-        if (!longUrl) {
-            if (errorMessage) {
-                errorMessage.textContent = 'Por favor, introduce una URL válida.';
-                errorMessage.classList.remove('hidden');
-            }
-            return;
-        }
-
-        // Validación básica de URL
-        try {
-            new URL(longUrl);
-        } catch (e) {
-            if (errorMessage) {
-                errorMessage.textContent = 'La URL introducida no es válida. Asegúrate de incluir el "http://" o "https://".';
-                errorMessage.classList.remove('hidden');
-            }
-            return;
-        }
-
-        // Llamada a la API real
-        try {
-            console.log('Enviando URL:', longUrl); // Debug log
-            
-            // Agregar estado de carga al botón
-            const shortenBtn = document.getElementById('shorten-btn');
-            if (shortenBtn) {
-                shortenBtn.innerHTML = `
-                    <svg class="animate-spin h-5 w-5 mr-2 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Acortando...
-                `;
-                shortenBtn.classList.add('loading-state');
-                shortenBtn.setAttribute('disabled', 'true');
-            }
-            
-            const response = await fetch('http://localhost:3001/api/v1/shorten', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ originalUrl: longUrl }),
-            });
-
-            console.log('Respuesta:', response.status); // Debug log
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('Error del servidor:', errorText);
-                throw new Error('Error al acortar la URL');
-            }
-
-            const data = await response.json();
-            const shortUrl = data.shortUrl;
-            
-            // Mostrar el resultado con animación suave
-            if (shortenedUrlSpan) {
-                shortenedUrlSpan.textContent = shortUrl;
-            }
-            
-            // Animación suave para mostrar el resultado
-            if (resultContainer) {
-                resultContainer.style.opacity = '0';
-                resultContainer.classList.remove('hidden');
-                resultContainer.classList.add('result-container');
-                setTimeout(() => {
-                    resultContainer.style.opacity = '1';
-                }, 10);
-            }
-            
-            // Restaurar el botón
-            if (shortenBtn) {
-                shortenBtn.innerHTML = 'Acortar';
-                shortenBtn.classList.remove('loading-state');
-                shortenBtn.removeAttribute('disabled');
-            }
-            
-        } catch (error) {
-            console.error('Error en la llamada:', error); // Debug log
-            
-            // Restaurar el botón en caso de error
-            const shortenBtn = document.getElementById('shorten-btn');
-            if (shortenBtn) {
-                shortenBtn.innerHTML = 'Acortar';
-                shortenBtn.classList.remove('loading-state');
-                shortenBtn.removeAttribute('disabled');
-            }
-            
-            if (errorMessage) {
-                errorMessage.textContent = 'Error al conectar con el servidor. Inténtalo de nuevo.';
-                errorMessage.classList.remove('hidden');
-            }
-        }
-    });
-
-    document.getElementById('copy-btn')?.addEventListener('click', () => {
-        const shortenedUrlSpan = document.getElementById('shortened-url');
-        if (shortenedUrlSpan) {
-            navigator.clipboard.writeText(shortenedUrlSpan.textContent || '').then(() => {
-                const copyBtn = document.getElementById('copy-btn');
-                if (copyBtn) {
-                    const originalText = copyBtn.textContent;
-                    copyBtn.textContent = '¡Copiado!';
-                    setTimeout(() => {
-                        copyBtn.textContent = originalText;
-                    }, 2000);
-                }
-            }).catch(() => {
-                // Fallback para navegadores que no soportan navigator.clipboard
-                const tempInput = document.createElement('input');
-                tempInput.value = shortenedUrlSpan.textContent || '';
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-                
-                const copyBtn = document.getElementById('copy-btn');
-                if (copyBtn) {
-                    const originalText = copyBtn.textContent;
-                    copyBtn.textContent = '¡Copiado!';
-                    setTimeout(() => {
-                        copyBtn.textContent = originalText;
-                    }, 2000);
-                }
-            });
-        }
-    });
-</script>
