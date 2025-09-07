@@ -2,6 +2,11 @@
 
 Un acortador de URLs for fun
 
+### Vista previa
+<img src="assets/ss1.png" alt="Ss de pantalla principal" width="600"/>
+
+--- 
+
 - **Backend**: NestJS con TypeScript
 - **Frontend**: Astro y Tailwind CSS
 
