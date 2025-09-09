@@ -2,10 +2,11 @@
 
 Un acortador de URLs for fun
 
-### Vista previa
-<img src="assets/ss1.png" alt="Ss de pantalla principal" width="600"/>
+## Vista previa
 
---- 
+![screenshot](./assets/ss1.png)
+
+---
 
 - **Backend**: NestJS con TypeScript
 - **Frontend**: Astro y Tailwind CSS
@@ -50,7 +51,7 @@ bun run lint
 
 ## 🏗️ Estructura del Proyecto
 
-```
+```bash
 url-shortener/
 ├── apps/
 │   ├── backend/          # API NestJS
@@ -67,10 +68,12 @@ url-shortener/
 ## 🛠️ Stack Tecnológico
 
 ### Backend
+
 - **Framework**: NestJS
 - **Runtime**: Bun
 - **Language**: TypeScript
 
 ### Frontend
+
 - **Framework**: Astro
 - **Styling**: Tailwind CSS 4
